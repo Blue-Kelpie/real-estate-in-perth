@@ -9,7 +9,7 @@
 		"env:dev": "composer i && pnpm i && pnpm build"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^32.6.0",
+		"@wordpress/scripts": "^34.1.0",
 		"glob": "^13.0.6"
 	}
 }
