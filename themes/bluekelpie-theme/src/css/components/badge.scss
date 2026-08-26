@@ -1,0 +1,41 @@
+// https://tailwindcss.com/plus/ui-blocks/application-ui/elements/badges
+@use "../utils/index.scss" as *;
+@use "./typography.scss" as *;
+@use "sass:map";
+
+$variations: (
+	green: (
+		color: color(green-700),
+		background: color(green-100),
+	),
+	yellow: (
+		color: color(yellow-800),
+		background: color(yellow-100),
+	),
+	red: (
+		color: color(red-700),
+		background: color(red-100),
+	),
+	primary: (
+		color: color(primary-700),
+		background: color(primary-100),
+	),
+);
+
+@mixin badge($variant) {
+	$variant-map: map.get($variations, $variant);
+
+	@include text(body-sm);
+
+	border: transparent;
+	font-weight: 500;
+	text-transform: unset;
+	padding-block: spacing(1);
+	padding-inline: spacing(2);
+
+	@include rounded-full;
+
+	@each $prop, $value in $variant-map {
+		#{$prop}: $value;
+	}
+}

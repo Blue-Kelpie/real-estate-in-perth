@@ -1,0 +1,200 @@
+@use "../utils/index.scss" as *;
+@use "./typography.scss" as *;
+
+@mixin input-container {
+	color: color("gray-900");
+	background: color("white");
+	box-shadow: (inset-ring(1px, color("gray-950/10")), shadow(xs));
+
+	&:hover:not(:checked) {
+		box-shadow: (inset-ring(1px, color("gray-950/20")), shadow(xs));
+	}
+}
+
+@mixin input-padding-placeholder-shown() {
+	padding-inline: spacing(2.5);
+	padding-top: spacing(2.5);
+	padding-bottom: spacing(2.5);
+}
+@mixin input-padding-placeholder-hidden() {
+	padding-inline: spacing(2.5);
+	padding-top: spacing(4.25);
+	padding-bottom: spacing(0.75);
+}
+
+@mixin input-font-size() {
+	line-height: spacing(6) !important;
+
+	@include breakpoint(max-sm) {
+		font-size: spacing(4) !important;
+	}
+	@include breakpoint(sm) {
+		font-size: spacing(3.5) !important;
+	}
+}
+
+@mixin input-overlay-label {
+	position: relative;
+
+	legend.gfield_label,
+	label.gfield_label {
+		@include text-xs;
+		font-weight: 400;
+		color: color("gray-500");
+
+		transition-property: transform, opacity;
+		transition-duration: 100ms;
+
+		position: absolute;
+		z-index: 1;
+		left: spacing(2.5);
+
+		span.gfield_required_text {
+			display: none;
+		}
+	}
+
+	&:has(input:placeholder-shown) {
+		label {
+			opacity: 0;
+			transform: translateY(spacing(4));
+		}
+		input {
+			@include input-padding-placeholder-shown;
+		}
+	}
+
+	&:not(:has(input:placeholder-shown)) {
+		label {
+			opacity: 1;
+			transform: translateY(spacing(1.25));
+		}
+		input {
+			@include input-padding-placeholder-hidden;
+		}
+	}
+}
+
+@mixin input {
+	@include input-container();
+	@include input-font-size();
+
+	border-radius: rounded(md);
+	outline-offset: -1px;
+	color: color("gray-900");
+
+	&::placeholder {
+		color: color(gray-500);
+	}
+
+	&:focus-visible {
+		outline: color("gray-900") solid 2px;
+		outline-offset: -2px;
+	}
+
+	// Remove red border on submision error
+	&[aria-invalid="true"] {
+		outline-color: color("red-500") !important;
+		outline-width: 2px;
+		outline-style: solid;
+		outline-offset: -2px;
+		border: none !important;
+	}
+}
+
+// todo: cleanup. just did the bare minimum, did not test states or check what css is unnecessary
+@mixin radio {
+	@include input-container();
+
+	appearance: none;
+	font-size: spacing(3.5);
+	font-weight: 400;
+	letter-spacing: 0;
+	margin: 0;
+	transition: 0.15s;
+	block-size: spacing(5);
+	inline-size: spacing(5);
+	line-height: spacing(5);
+	border-radius: 50%;
+	display: inline-grid;
+	place-content: center;
+	padding: 0;
+	opacity: 1;
+
+	&::before {
+		background-color: color("white");
+		block-size: spacing(2);
+		inline-size: spacing(2);
+		border-radius: 50%;
+		content: "";
+		opacity: 0;
+	}
+
+	&:checked {
+		background-color: color("white/30");
+
+		&::before {
+			opacity: 1;
+		}
+	}
+
+	&:focus-visible {
+		outline-color: color("amber-400");
+		outline-width: 2px;
+		outline-offset: -2px;
+	}
+
+	&:hover:not(:checked) {
+		background-color: color("black/50");
+		outline-color: color("white/20");
+	}
+
+	&:disabled {
+		opacity: 0.5;
+	}
+}
+
+@mixin checkbox {
+	@include input-container();
+
+	appearance: none;
+	display: inline-grid;
+	place-content: center;
+	block-size: spacing(5);
+	inline-size: spacing(5);
+	padding: 0 !important;
+	border-radius: rounded(sm);
+	opacity: 1;
+	color: color("white");
+
+	@include svg-pseudo(
+		"check",
+		(
+			size: 5,
+			position: before,
+		)
+	);
+
+	&::before {
+		opacity: 0;
+	}
+
+	&:checked {
+		background-color: color("primary-500");
+		box-shadow: unset;
+
+		&::before {
+			opacity: 1;
+		}
+	}
+
+	&:focus-visible {
+		outline-color: color("primary-500");
+		outline-width: 2px;
+		outline-offset: -2px;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+	}
+}

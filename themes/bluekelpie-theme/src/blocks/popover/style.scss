@@ -1,0 +1,72 @@
+@use "/src/css/components/index.scss" as *;
+@use "/src/css/utils/index.scss" as *;
+
+@mixin transition() {
+	transition-property:
+		background-color,
+		border-color,
+		outline-color,
+		text-decoration-color,
+		fill,
+		stroke,
+		opacity,
+		box-shadow,
+		transform,
+		translate,
+		scale,
+		rotate,
+		filter,
+		-webkit-backdrop-filter,
+		backdrop-filter,
+		display,
+		content-visibility,
+		overlay,
+		pointer-events;
+}
+
+el-popover {
+	position: absolute;
+	top: spacing(16);
+	width: 100%;
+	overflow: visible;
+	background: color("white");
+	transition-behavior: allow-discrete;
+
+	@include transition();
+
+	&:is([open], :popover-open, :open) {
+		display: block;
+	}
+
+	&[data-closed] {
+		translate: 0 spacing(-1);
+		opacity: 0;
+	}
+
+	&[data-enter] {
+		transition-timing-function: ease("out");
+		transition-duration: 200ms;
+	}
+
+	&[data-leave] {
+		transition-timing-function: ease("in");
+		transition-duration: 150ms;
+	}
+
+	::backdrop {
+		background-color: transparent;
+	}
+
+	div.bottom-shadow-container {
+		position: absolute;
+		inset: 0;
+		top: 50%;
+		background-color: color("white");
+		box-shadow: shadow("lg");
+	}
+
+	div.container {
+		position: relative;
+		background-color: color("white");
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bluekelpie/popover",
+	"version": "0.1.0",
+	"title": "Popover",
+	"category": "theme",
+	"icon": "menu",
+	"description": "Popover",
+	"attributes": {
+		"label": {
+			"type": "string",
+			"default": "Popover"
+		}
+	},
+	"supports": {
+		"interactivity": true
+	},
+	"textdomain": "bluekelpie",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"editorStyle": "file:./index.css",
+	"render": "file:./render.php",
+	"viewScriptModule": "file:./view.ts"
+}

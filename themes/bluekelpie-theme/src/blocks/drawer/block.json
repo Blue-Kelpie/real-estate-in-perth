@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bluekelpie/drawer",
+	"version": "0.1.0",
+	"title": "Drawer",
+	"category": "theme",
+	"icon": "menu",
+	"description": "Drawer",
+	"attributes": {},
+	"supports": {
+		"interactivity": true
+	},
+	"textdomain": "bluekelpie",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"editorStyle": "file:./index.css",
+	"render": "file:./render.php",
+	"viewScriptModule": "file:./view.ts"
+}

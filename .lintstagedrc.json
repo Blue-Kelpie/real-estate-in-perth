@@ -1,0 +1,7 @@
+{
+	"*.css": ["pnpm lint:css"],
+	"*.scss": ["pnpm lint:css"],
+	"*.js": ["pnpm lint:js"],
+	"*.ts": ["pnpm lint:js"],
+	"*.php": ["./vendor/bin/phpcs --standard=./phpcs.xml"]
+}

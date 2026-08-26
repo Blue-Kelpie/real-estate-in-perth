@@ -1,0 +1,40 @@
+{
+	"name": "bluekelpie-scaffold",
+	"version": "1.0.0",
+	"description": "Project Description",
+	"homepage": "https://project-domain.tld",
+	"repository": {
+		"type": "git",
+		"url": "https://project-git-repo.tld"
+	},
+	"workspaces": [
+		"themes/bluekelpie-theme",
+		"mu-plugins/bluekelpie-plugin"
+	],
+	"scripts": {
+		"start": "pnpm -r start",
+		"build": "pnpm -r build",
+		"lint:css": "pnpm -r lint:css",
+		"lint:js": "pnpm -r lint:js",
+		"composer:install": "pnpm -r composer:install",
+		"packages:update": "wp-scripts packages-update && pnpm update",
+		"env:prod": "composer i --no-dev && pnpm -r env:prod && rm -rf node_modules",
+		"env:dev": "composer i && pnpm i && pnpm -r env:dev && pnpm husky"
+	},
+	"author": {
+		"name": "Blue Kelpie Web Design",
+		"url": "https://bluekelpie.com.au/"
+	},
+	"devDependencies": {
+		"eslint": "^10",
+		"@wordpress/eslint-plugin": "^25",
+		"@wordpress/prettier-config": "^4",
+		"@wordpress/scripts": "^32.6.0",
+		"@wordpress/stylelint-config": "^23",
+		"eslint-config-prettier": "^10",
+		"stylelint": "^17",
+		"husky": "^9",
+		"lint-staged": "^17",
+		"typescript": "^6"
+	}
+}

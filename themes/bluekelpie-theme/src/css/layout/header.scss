@@ -1,0 +1,19 @@
+@use "../components/index.scss" as *;
+@use "../utils/index.scss" as *;
+
+header {
+	ul.wp-block-page-list {
+		li {
+			a {
+				color: color(gray-700) !important;
+				padding: spacing(4);
+				margin: spacing(-4);
+				font-weight: 500;
+
+				@include on-event {
+					color: color(gray-900) !important;
+				}
+			}
+		}
+	}
+}

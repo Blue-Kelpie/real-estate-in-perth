@@ -1,0 +1,6 @@
+@use "../../src/css/components/index.scss" as *;
+@use "../../src/css/utils/index.scss" as *;
+
+div.wp-block-bluekelpie-example-block {
+	color: color(primary-700);
+}

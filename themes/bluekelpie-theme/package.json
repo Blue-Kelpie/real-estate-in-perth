@@ -1,0 +1,26 @@
+{
+	"name": "bluekelpie-theme",
+	"version": "1.0.0",
+	"scripts": {
+		"start": "wp-scripts start --experimental-modules --blocks-manifest",
+		"build": "rm -rf ./build && wp-scripts build --experimental-modules --blocks-manifest",
+		"lint:css": "wp-scripts lint-style --max-warnings=0",
+		"lint:js": "wp-scripts lint-js --max-warnings=0",
+		"env:prod": "composer i --no-dev && pnpm i && pnpm build && rm -rf ./node_modules",
+		"env:dev": "composer i && pnpm i && pnpm build"
+	},
+	"devDependencies": {
+		"@10up/block-components": "^1.22.1",
+		"@tailwindplus/elements": "^1.0.22",
+		"@wordpress/element": "^8.2.0",
+		"@wordpress/hooks": "^4.50.0",
+		"@wordpress/i18n": "^6.23.0",
+		"@wordpress/icons": "^15.1.0",
+		"@wordpress/interactivity": "^6.50.0",
+		"@wordpress/scripts": "^32.6.0",
+		"glob": "^13.0.6"
+	},
+	"dependencies": {
+		"motion": "^12.43.0"
+	}
+}

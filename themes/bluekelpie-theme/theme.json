@@ -1,0 +1,380 @@
+{
+	"settings": {
+		"appearanceTools": true,
+		"color": {
+			"defaultDuotone": false,
+			"defaultGradients": false,
+			"defaultPalette": false,
+			"palette": [
+				{
+					"color": "oklch(.985 .002 247.839)",
+					"name": "Gray 50",
+					"slug": "gray-50"
+				},
+				{
+					"color": "oklch(.967 .003 264.542)",
+					"name": "Gray 100",
+					"slug": "gray-100"
+				},
+				{
+					"color": "oklch(.928 .006 264.531)",
+					"name": "Gray 200",
+					"slug": "gray-200"
+				},
+				{
+					"color": "oklch(.872 .01 258.338)",
+					"name": "Gray 300",
+					"slug": "gray-300"
+				},
+				{
+					"color": "oklch(70.7% 0.022 261.325)",
+					"name": "Gray 400",
+					"slug": "gray-400"
+				},
+				{
+					"color": "oklch(.551 .027 264.364)",
+					"name": "Gray 500",
+					"slug": "gray-500"
+				},
+				{
+					"color": "oklch(44.6% 0.03 256.802)",
+					"name": "Gray 600",
+					"slug": "gray-600"
+				},
+				{
+					"color": "oklch(37.3% 0.034 259.733)",
+					"name": "Gray 700",
+					"slug": "gray-700"
+				},
+				{
+					"color": "oklch(27.8% 0.033 256.848)",
+					"name": "Gray 800",
+					"slug": "gray-800"
+				},
+				{
+					"color": "oklch(21% 0.034 264.665)",
+					"name": "Gray 900",
+					"slug": "gray-900"
+				},
+				{
+					"color": "oklch(.13 .028 261.692)",
+					"name": "Gray 950",
+					"slug": "gray-950"
+				},
+				{
+					"color": "oklch(97% 0.014 254.604)",
+					"name": "Primary 50",
+					"slug": "primary-50"
+				},
+				{
+					"color": "oklch(93.2% 0.032 255.585)",
+					"name": "Primary 100",
+					"slug": "primary-100"
+				},
+				{
+					"color": "oklch(0.882 0.059 254.128)",
+					"name": "Primary 200",
+					"slug": "primary-200"
+				},
+				{
+					"color": "oklch(0.809 0.105 251.813)",
+					"name": "Primary 300",
+					"slug": "primary-300"
+				},
+				{
+					"color": "oklch(70.7% 0.165 254.624)",
+					"name": "Primary 400",
+					"slug": "primary-400"
+				},
+				{
+					"color": "oklch(0.623 0.214 259.815)",
+					"name": "Primary 500",
+					"slug": "primary-500"
+				},
+				{
+					"color": "oklch(0.546 0.245 262.881)",
+					"name": "Primary 600",
+					"slug": "primary-600"
+				},
+				{
+					"color": "oklch(48.8% 0.243 264.376)",
+					"name": "Primary 700",
+					"slug": "primary-700"
+				},
+				{
+					"color": "oklch(42.4% 0.199 265.638)",
+					"name": "Primary 800",
+					"slug": "primary-800"
+				},
+				{
+					"color": "oklch(37.9% 0.146 265.522)",
+					"name": "Primary 900",
+					"slug": "primary-900"
+				},
+				{
+					"color": "oklch(28.2% 0.091 267.935)",
+					"name": "Primary 950",
+					"slug": "primary-950"
+				}
+			]
+		},
+		"custom": {
+			"--spacing-var": ".25rem",
+			"x-padding": "var(--wp--preset--spacing--24)",
+			"content-area": "calc(100vw - (2 * var(--wp--custom--x-padding)))",
+			"wide-size-x-total": "calc(100vw - var(--wp--style--global--wide-size))",
+			"wide-size-x": "calc(var(--wp--custom--wide-size-x-total) / 2)",
+			"wide-size-content-area": "min(var(--wp--style--global--wide-size), var(--wp--custom--content-area))"
+		},
+		"layout": {
+			"allowCustomContentAndWideSize": false,
+			"contentSize": "42rem",
+			"wideSize": "80rem"
+		},
+		"spacing": {
+			"defaultSpacingSizes": false,
+			"spacingSizes": [
+				{
+					"name": "2",
+					"size": "0.125rem",
+					"slug": "2"
+				},
+				{
+					"name": "4",
+					"size": "0.25rem",
+					"slug": "4"
+				},
+				{
+					"name": "8",
+					"size": "0.5rem",
+					"slug": "8"
+				},
+				{
+					"name": "12",
+					"size": "0.75rem",
+					"slug": "12"
+				},
+				{
+					"name": "16",
+					"size": "1rem",
+					"slug": "16"
+				},
+				{
+					"name": "24",
+					"size": "1.5rem",
+					"slug": "24"
+				},
+				{
+					"name": "24 → 40",
+					"size": "clamp(1.5rem, 0.9rem + 2vw, 2.5rem)",
+					"slug": "24-40"
+				},
+				{
+					"name": "32",
+					"size": "2rem",
+					"slug": "32"
+				},
+				{
+					"name": "40",
+					"size": "2.5rem",
+					"slug": "40"
+				},
+				{
+					"name": "40 → 80",
+					"size": "clamp(2.5rem, 1rem + 5vw, 5rem)",
+					"slug": "40-80"
+				},
+				{
+					"name": "48",
+					"size": "3rem",
+					"slug": "48"
+				},
+				{
+					"name": "64",
+					"size": "4rem",
+					"slug": "64"
+				},
+				{
+					"name": "80",
+					"size": "5rem",
+					"slug": "80"
+				},
+				{
+					"name": "96",
+					"size": "6rem",
+					"slug": "96"
+				},
+				{
+					"name": "128",
+					"size": "8rem",
+					"slug": "128"
+				},
+				{
+					"name": "160",
+					"size": "10rem",
+					"slug": "160"
+				}
+			]
+		},
+		"typography": {
+			"defaultFontSizes": false,
+			"customFontSize": false,
+			"lineHeight": false,
+			"letterSpacing": false,
+			"dropCap": false,
+			"fluid": {
+				"maxViewportWidth": "80rem",
+				"minViewportWidth": "30rem"
+			},
+			"fontSizes": [
+				{
+					"name": "Action small",
+					"slug": "action-sm",
+					"size": "0.875rem",
+					"fluid": {
+						"min": "0.875rem",
+						"max": "1rem"
+					}
+				},
+				{
+					"name": "Action md",
+					"slug": "action-md",
+					"size": "1rem",
+					"fluid": {
+						"min": "1rem",
+						"max": "1.125rem"
+					}
+				},
+				{
+					"name": "Body small",
+					"slug": "body-sm",
+					"size": "0.875rem",
+					"fluid": {
+						"min": "0.875rem",
+						"max": "1rem"
+					}
+				},
+				{
+					"name": "Body md",
+					"slug": "body-md",
+					"size": "1rem",
+					"fluid": {
+						"min": "1rem",
+						"max": "1.125rem"
+					}
+				},
+				{
+					"name": "Body large",
+					"slug": "body-lg",
+					"size": "1.125rem",
+					"fluid": {
+						"min": "1.125rem",
+						"max": "1.25rem"
+					}
+				},
+				{
+					"name": "Subheading md",
+					"slug": "subheading-md",
+					"size": "1rem",
+					"fluid": {
+						"min": "1rem",
+						"max": "1.125rem"
+					}
+				},
+				{
+					"name": "Subheading large",
+					"slug": "subheading-lg",
+					"size": "1.25rem",
+					"fluid": {
+						"min": "1.125rem",
+						"max": "1.25rem"
+					}
+				},
+				{
+					"name": "Heading 3xl",
+					"slug": "heading-3xl",
+					"size": "1.875rem",
+					"fluid": {
+						"min": "1.875rem",
+						"max": "2.25rem"
+					}
+				},
+				{
+					"name": "Heading 4xl",
+					"slug": "heading-4xl",
+					"size": "2.25rem",
+					"fluid": {
+						"min": "2.25rem",
+						"max": "3rem"
+					}
+				},
+				{
+					"name": "Heading 5xl",
+					"slug": "heading-5xl",
+					"size": "3rem",
+					"fluid": {
+						"min": "3rem",
+						"max": "3.75rem"
+					}
+				}
+			],
+			"fontFamilies": [
+				{
+					"name": "Inter Variable",
+					"slug": "inter",
+					"fontFamily": "Inter Variable, sans-serif",
+					"fontFace": [
+						{
+							"fontFamily": "Inter Variable",
+							"fontStyle": "normal",
+							"fontWeight": "100 900",
+							"src": [
+								"file:./fonts/inter-variable-opsz-wght.woff2"
+							]
+						}
+					]
+				},
+				{
+					"fontFamily": "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell,\"Helvetica Neue\",sans-serif",
+					"name": "System Font",
+					"slug": "system-font"
+				}
+			]
+		},
+		"useRootPaddingAwareAlignments": true
+	},
+	"styles": {
+		"spacing": {
+			"blockGap": "var(--wp--preset--spacing--24)",
+			"padding": {
+				"bottom": "0",
+				"left": "var(--wp--custom--x-padding)",
+				"right": "var(--wp--custom--x-padding)",
+				"top": "0"
+			}
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--inter)",
+			"fontSize": "var(--wp--preset--font-size--body-md)",
+			"lineHeight": "1.5"
+		},
+		"color": {
+			"background": "var(--wp--preset--color--white)",
+			"text": "var(--wp--preset--color--gray-900)"
+		}
+	},
+	"templateParts": [
+		{
+			"area": "header",
+			"name": "header",
+			"title": "Site Header"
+		},
+		{
+			"area": "footer",
+			"name": "footer",
+			"title": "Site Footer"
+		}
+	],
+	"version": 3,
+	"$schema": "https://schemas.wp.org/wp/6.7/theme.json"
+}

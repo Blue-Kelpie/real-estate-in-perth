@@ -1,0 +1,79 @@
+name: PHP Checks
+
+permissions:
+    contents: read
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+env:
+    PHP_VERSION: '8.4'
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+
+            - name: Setup PHP with composer v2
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ env.PHP_VERSION }}
+                  tools: composer:v2
+              env:
+                  COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Get composer cache directory
+              id: composer-cache
+              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+            - name: Cache composer dependencies
+              uses: actions/cache@v6
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: ${{ runner.os }}-composer-
+
+            - name: Validate composer.json and composer.lock
+              run: composer validate --strict
+
+            - name: Install dependencies (without ACF Pro)
+              run: composer remove wpengine/advanced-custom-fields-pro --no-progress --no-interaction
+
+            - name: Run PHPCS
+              run: composer run lint
+
+    static-analysis:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+
+            - name: Setup PHP with composer v2
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ env.PHP_VERSION }}
+                  tools: composer:v2
+              env:
+                  COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Get composer cache directory
+              id: composer-cache
+              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+            - name: Cache composer dependencies
+              uses: actions/cache@v6
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: ${{ runner.os }}-composer-
+
+            - name: Install dependencies (without ACF Pro)
+              run: composer remove wpengine/advanced-custom-fields-pro --no-progress --no-interaction
+
+            - name: Run PHPStan
+              run: composer run static

@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"allowJs": true,
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"jsx": "react-jsx"
+	},
+	"include": ["**/*.ts", "**/*.tsx", "**/*.mts"],
+	"exclude": ["node_modules", "plugins", "bin"]
+}

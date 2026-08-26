@@ -1,0 +1,16 @@
+@use "../../components/index.scss" as *;
+@use "../../utils/index.scss" as *;
+
+div.wc-block-add-to-cart-form {
+	&.stock {
+		width: fit-content;
+
+		&.in-stock {
+			@include badge(green);
+		}
+
+		&.out-of-stock {
+			@include badge(red);
+		}
+	}
+}

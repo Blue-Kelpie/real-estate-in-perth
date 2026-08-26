@@ -1,0 +1,23 @@
+{
+	"name": "bluekelpie/bluekelpie-plugin",
+	"description": "The starting point for all Blue Kelpie WordPress plugins.",
+	"license": "MIT",
+	"type": "wordpress-plugin",
+	"authors": [
+		{
+			"name": "Blue Kelpie",
+			"email": "enquiries@bluekelpie.com.au"
+		}
+	],
+	"require": {
+		"php": ">=8.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"BlueKelpiePlugin\\": "includes/"
+		},
+		"files": [
+			"includes/Helpers.php"
+		]
+	}
+}

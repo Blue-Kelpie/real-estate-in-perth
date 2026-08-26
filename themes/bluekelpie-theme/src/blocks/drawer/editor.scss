@@ -1,0 +1,8 @@
+@use "/src/css/components/index.scss" as *;
+@use "/src/css/utils/index.scss" as *;
+
+el-dialog {
+	dialog {
+		z-index: 999;
+	}
+}

@@ -1,0 +1,35 @@
+{
+	"name": "bluekelpie/wp-scaffold",
+	"description": "The starting point for all Blue Kelpie WordPress projects.",
+	"authors": [
+		{
+			"name": "Blue Kelpie"
+		}
+	],
+	"license": "proprietary",
+	"minimum-stability": "beta",
+	"require": {
+		"php": ">=8.2"
+	},
+	"require-dev": {
+		"phpcompatibility/phpcompatibility-wp": "^2",
+		"wp-coding-standards/wpcs": "^3",
+		"sirbrillig/phpcs-variable-analysis": "^3",
+		"szepeviktor/phpstan-wordpress": "^2",
+		"phpstan/phpstan-deprecation-rules": "^2",
+		"php-stubs/acf-pro-stubs": "^6.5"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"lint": "phpcs --standard=phpcs.xml",
+		"lint:fix": "phpcbf --standard=phpcs.xml --report-summary --report-source || true",
+		"static": [
+			"Composer\\Config::disableProcessTimeout",
+			"phpstan --memory-limit=1G"
+		]
+	}
+}

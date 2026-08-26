@@ -1,0 +1,59 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","align":"wide","className":"site-x-padding","style":{"spacing":{"blockGap":"var:preset|spacing|16","padding":{"top":"var:preset|spacing|128","bottom":"var:preset|spacing|128"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"center","verticalAlignment":"center"}} -->
+<main
+	class="wp-block-group alignwide site-x-padding"
+	style="
+		padding-top: var(--wp--preset--spacing--128);
+		padding-bottom: var(--wp--preset--spacing--128);
+	"
+>
+	<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|primary-600"}}}},"textColor":"primary-600","fontSize":"text-base"} -->
+	<p
+		class="has-primary-600-color has-text-color has-link-color has-text-base-font-size"
+		style="font-style: normal; font-weight: 600; text-transform: uppercase"
+	>
+		404
+	</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":1,"className":"has-text-align-center has-heading-5-7-font-size","style":{"typography":{"textTransform":"none","fontStyle":"normal","fontWeight":"600","textAlign":"center"}},"fontSize":"heading-5-7"} -->
+	<h1
+		class="wp-block-heading has-text-align-center has-heading-5-7-font-size"
+		style="font-style: normal; font-weight: 600; text-transform: none"
+	>
+		This page does not exist
+	</h1>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"500","textAlign":"center"},"elements":{"link":{"color":{"text":"var:preset|color|gray-500"}}},"spacing":{"margin":{"top":"var:preset|spacing|8"}}},"textColor":"gray-500","fontSize":"text-xl"} -->
+	<p
+		class="has-text-align-center has-gray-500-color has-text-color has-link-color has-text-xl-font-size"
+		style="
+			margin-top: var(--wp--preset--spacing--8);
+			font-style: normal;
+			font-weight: 500;
+		"
+	>
+		Sorry, we couldn’t find the page you’re looking for.
+	</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|24"}}}} -->
+	<div
+		class="wp-block-buttons"
+		style="margin-top: var(--wp--preset--spacing--24)"
+	>
+		<!-- wp:button {"className":"is-style-default size-lg","icon":{"name":"","iconSet":"","beforeText":false}} -->
+		<div class="wp-block-button is-style-default size-lg size-md">
+			<a class="wp-block-button__link wp-element-button" href="/"
+				>Back to home</a
+			>
+		</div>
+		<!-- /wp:button -->
+	</div>
+	<!-- /wp:buttons -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

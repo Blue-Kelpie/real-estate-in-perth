@@ -1,0 +1,77 @@
+@use "sass:map";
+@use "sass:string";
+@use "sass:math";
+@use "sass:meta";
+@use "sass:list";
+
+/// TailwindCSS breakpoints.
+///
+/// @link https://tailwindcss.com/docs/responsive-design
+$breakpoints: (
+	"sm": 40rem,
+	"md": 48rem,
+	"lg": 64rem,
+	"xl": 80rem,
+	"2xl": 96rem,
+);
+
+/// This mixin helps you respond to different breakpoints from within each applicable selector.
+///
+/// @param {String} $breakpoint Breakpoint.
+/// @link https://sass-guidelin.es/#responsive-web-design-and-breakpoints
+///
+@mixin breakpoint($value) {
+	// Convert value to string before performing operations
+	$value: "#{$value}";
+	$min: null;
+	$max: null;
+
+	// Max-Foo breakpoint
+	@if string.index($value, "max-") == 1 {
+		$max: string.slice($value, 5);
+	}
+
+	// Foo-Bar breakpoint
+	@else if string.index($value, "-") {
+		$parts: string.split($value, "-");
+		$min: list.nth($parts, 1);
+		$max: list.nth($parts, 2);
+	}
+
+	// Foo breakpoint
+	@else {
+		$min: $value;
+	}
+
+	$query: null;
+
+	@if $min {
+		$min-width: map.get($breakpoints, $min);
+
+		@if not $min-width {
+			@error "Invalid breakpoint: `#{$min}`.";
+		}
+
+		$query: "(min-width: #{$min-width})";
+	}
+
+	@if $max {
+		$max-width: map.get($breakpoints, $max);
+
+		@if not $max-width {
+			@error "Invalid breakpoint: `#{$max}`.";
+		}
+
+		$max-condition: "(max-width: #{$max-width - 0.02rem})";
+
+		@if $query {
+			$query: "#{$query} and #{$max-condition}";
+		} @else {
+			$query: $max-condition;
+		}
+	}
+
+	@media #{$query} {
+		@content;
+	}
+}

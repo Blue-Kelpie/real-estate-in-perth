@@ -1,0 +1,133 @@
+@use "/src/css/components/index.scss" as *;
+@use "/src/css/utils/index.scss" as *;
+
+el-dialog {
+	dialog {
+		position: fixed;
+		inset: 0;
+		width: auto;
+		height: auto;
+		max-height: none;
+		max-width: none;
+		overflow: hidden;
+		background-color: transparent;
+
+		&::backdrop {
+			background-color: transparent;
+		}
+
+		el-dialog-backdrop {
+			position: absolute;
+			inset: 0;
+			background-color: color("black/50") !important;
+			transition-property: opacity;
+			transition-duration: 500ms;
+			transition-timing-function: ease(in-out);
+
+			&[data-closed] {
+				opacity: 0;
+			}
+		}
+
+		.panel-container {
+			position: absolute;
+			inset: 0;
+			padding-left: spacing(10);
+
+			@include breakpoint(sm) {
+				padding-left: spacing(16);
+			}
+
+			el-dialog-panel {
+				margin-left: auto;
+				display: block;
+				width: 100%;
+				height: 100%;
+				max-width: container(md);
+				transition-property: translate;
+				transition-duration: 500ms;
+				transition-timing-function: ease(in-out);
+
+				@include breakpoint(sm) {
+					transition-duration: 700ms;
+				}
+
+				&[data-closed] {
+					translate: 100%;
+				}
+
+				.panel {
+					position: relative;
+					height: 100%;
+					display: flex;
+					flex-direction: column;
+					overflow-y: auto;
+					background-color: color("white");
+					padding-block: spacing(6);
+					box-shadow: shadow(xl, color("black/10"));
+
+					.panel-head-container {
+						padding-inline: spacing(4);
+
+						@include breakpoint(sm) {
+							padding-inline: spacing(6);
+						}
+
+						.panel-head {
+							display: flex;
+							align-items: flex-start;
+							justify-content: space-between;
+							gap: spacing(3);
+
+							h2 {
+								font-weight: 600;
+								color: color(gray-900);
+
+								@include text(body-md);
+							}
+
+							.button-container {
+								display: flex;
+								align-items: center;
+								margin-left: auto;
+								height: spacing(7);
+
+								button {
+									position: relative;
+									border-radius: rounded(md);
+									color: color(gray-400);
+
+									@include touch-target(false);
+
+									@include hover {
+										color: color(gray-500);
+									}
+
+									@include focus-visible {
+										outline: color(blue-600) solid 2px;
+										outline-offset: -2px;
+									}
+
+									svg {
+										@include size(6);
+									}
+								}
+							}
+						}
+					}
+
+					.panel-body-container {
+						flex: 1;
+						position: relative;
+						margin-top: spacing(6);
+						padding-inline: spacing(4);
+
+						@include breakpoint(sm) {
+							padding-inline: spacing(6);
+						}
+					}
+				}
+			}
+		}
+	}
+}

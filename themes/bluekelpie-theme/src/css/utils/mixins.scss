@@ -1,0 +1,190 @@
+@use "sass:map";
+@use "./functions.scss" as *;
+
+///
+/// Event wrapper
+/// @author Harry Roberts
+///
+@mixin on-event() {
+	&:hover,
+	&:active,
+	&:focus-visible {
+		@content;
+	}
+}
+
+@mixin hover() {
+	&:hover {
+		@content;
+	}
+}
+
+@mixin focus-visible() {
+	&:focus-visible {
+		@content;
+	}
+}
+
+///
+/// Increases touch target size to 44x44px to comply with WCAG standards.
+/// @link Concept explained by Adam Wathan: https://youtu.be/soFSSkf4oVYx
+///
+/// @author Adam Wathan
+/// @param {boolean} $touchOnly Enable for touch devices only
+@mixin touch-target($touchOnly: true) {
+	--translate-half: calc(calc(1 / 2 * 100%) * -1); /* 50% */
+	--position-half: calc(1 / 2 * 100%); /* 50% */
+	--size: max(100%, 3rem);
+
+	position: relative;
+
+	&::after {
+		content: "";
+		position: absolute;
+		top: var(--position-half);
+		left: var(--position-half);
+		width: var(--size);
+		height: var(--size);
+		translate: var(--translate-half) var(--translate-half);
+
+		@if $touchOnly {
+			@media (pointer: fine) {
+				display: none;
+			}
+		}
+	}
+}
+
+///
+///  Utility for width and height, most commonly used for icons.
+///
+/// @param {boolean} $size The size variable.
+/// @param {boolean} $important Sometimes you need to override existing styles.
+///
+@mixin size($size: 6, $important: false) {
+	height: calc(var(--spacing) * $size);
+	width: calc(var(--spacing) * $size);
+
+	@if $important {
+		height: calc(var(--spacing) * $size) !important;
+		width: calc(var(--spacing) * $size) !important;
+	}
+}
+
+@mixin truncate($number: 1) {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: $number;
+}
+
+@mixin rounded-full() {
+	border-radius: 3.40282e38px;
+}
+
+// Example with all options: @include svg-pseudo(arrow-right, (size: spacing(5), position: before, flip: true));
+@mixin svg-pseudo($svg, $options: ()) {
+	$position: map.get($options, position) or after;
+	$flip: map.get($options, flip) or false;
+
+	$pseudo: "::#{$position}";
+
+	&#{$pseudo} {
+		background-color: currentcolor;
+		content: "";
+		display: inline-block;
+		mask-position: center;
+		mask-repeat: no-repeat;
+		mask-size: cover;
+		height: map.get($options, size);
+		width: map.get($options, size);
+
+		// Load SVG from assets/svg directory
+		$icon-path: "@svg/#{$svg}.svg";
+
+		mask-image: url($icon-path);
+
+		@if $flip {
+			transform: rotate(180deg);
+		}
+	}
+}
+
+@mixin sr-only() {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+///
+/// Full-bleed hover overlay painted on a `::after` behind the content
+/// (z-index: -10), so hover / active / focus tint an element without repainting
+/// its own background. Match `$radius` to the element's corner radius.
+///
+/// @param {Length}  $radius Corner radius of the overlay.
+/// @param {Color}   $hover-color Tint shown on hover/active/focus-visible.
+/// @param {Boolean} $expanded Also tint while [aria-expanded="true"].
+///
+@mixin hover-overlay($radius: inherit, $hover-color: null, $expanded: false) {
+	position: relative;
+	isolation: isolate;
+
+	@if $hover-color {
+		@include on-event {
+			&::after {
+				background-color: $hover-color;
+			}
+		}
+
+		@if $expanded {
+			&[aria-expanded="true"]::after {
+				background-color: $hover-color;
+			}
+		}
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: -10;
+		background-color: transparent;
+		border-radius: $radius;
+	}
+}
+
+///
+/// WordPress content-width grid: a centred track flanked by gutters that grow
+/// from `x-padding` up to `wide-size-x`.
+///
+/// @param {*}       $center Track(s) for the centre column. Defaults to `1fr`.
+/// @param {Boolean} $important Append `!important` to beat WP layout CSS.
+///
+@mixin gutter-columns($center: 1fr, $important: false) {
+	$gutter: minmax(
+		var(--wp--custom--x-padding),
+		var(--wp--custom--wide-size-x)
+	);
+
+	@if $important {
+		grid-template-columns: $gutter #{$center} $gutter !important;
+	} @else {
+		grid-template-columns: $gutter #{$center} $gutter;
+	}
+}
+
+// @link https://www.reddit.com/r/css/comments/1aop4i1/i_just_learned_how_to_hide_the_page_scroll_bar/
+@mixin hide-scrollbar() {
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE and Edge */
+	&::-webkit-scrollbar,
+	&::-webkit-scrollbar-button {
+		display: none;
+	} /* Chrome */
+}

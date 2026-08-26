@@ -1,0 +1,12 @@
+@use "../../components/index.scss" as *;
+@use "../../utils/index.scss" as *;
+
+div.wc-block-components-product-badge {
+	&.wc-block-components-sale-badge {
+		@include badge(primary);
+	}
+
+	&.wc-block-components-product-low-stock-badge {
+		@include badge(yellow);
+	}
+}

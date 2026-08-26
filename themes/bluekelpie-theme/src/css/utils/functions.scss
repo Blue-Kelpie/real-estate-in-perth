@@ -1,0 +1,336 @@
+@use "sass:string";
+@use "sass:meta";
+@use "sass:map";
+@use "sass:list";
+
+@function color($color) {
+	$value: null;
+
+	@if meta.type-of($color) == "string" and string.index($color, "/") {
+		$name: $color;
+		$slash: string.index($color, "/");
+		$name: string.slice($color, 1, $slash - 1);
+		$opacity-str: string.slice($color, $slash + 1);
+		$opacity: $opacity-str + "%";
+		$value: color-mix(
+			in oklab,
+			var(--wp--preset--color--#{$name}) #{$opacity},
+			transparent
+		);
+	} @else {
+		$value: var(--wp--preset--color--#{$color});
+	}
+
+	@return $value;
+}
+
+// Utility for accessing the spacing variable which mimics the spacing scale of TailwindCSS.
+@function spacing($number, $important: false) {
+	$important-str: "";
+
+	@if $important {
+		$important-str: "!important";
+	}
+
+	@return calc(var(--spacing) * #{$number}) #{$important-str};
+}
+
+$containers: (
+	"3xs": 16rem,
+	"2xs": 18rem,
+	"xs": 20rem,
+	"sm": 24rem,
+	"md": 28rem,
+	"lg": 32rem,
+	"xl": 36rem,
+	"2xl": 42rem,
+	"3xl": 48rem,
+	"4xl": 56rem,
+	"5xl": 64rem,
+	"6xl": 72rem,
+	"7xl": 80rem,
+);
+
+@function container($size) {
+	@if map.has-key($containers, $size) {
+		@return map.get($containers, $size);
+	}
+
+	@error "Unknown container size `#{$size}`";
+}
+
+$radii: (
+	"xs": 0.125rem,
+	"sm": 0.25rem,
+	"md": 0.375rem,
+	"lg": 0.5rem,
+	"xl": 0.75rem,
+	"2xl": 1rem,
+	"3xl": 1.5rem,
+	"4xl": 2rem,
+	"full": 3.4e38px,
+);
+
+@function rounded($size) {
+	@if map.has-key($radii, $size) {
+		@return map.get($radii, $size);
+	}
+
+	@error "Unknown radius `#{$size}`";
+}
+
+// Tailwind v4 box-shadow & ring API, reimplemented as composable functions.
+// Tailwind stacks five slots into one box-shadow, painted front to back:
+// inset-shadow, inset-ring, ring-offset, ring, shadow. Each function returns one
+// slot's layer(s) as a single value; compose the slots you need in that order,
+// e.g. `box-shadow: (inset-ring(1px, color(border)), shadow(xs))`. Unused slots
+// are simply omitted — Tailwind's transparent placeholders exist only so its CSS
+// variables can be overridden independently, and they render nothing. Opacities
+// are stored unitless so the default shadow color can be built via color().
+$shadows: (
+	"2xs": (
+		(0 1px, 5),
+	),
+	"xs": (
+		(0 1px 2px 0, 5),
+	),
+	"sm": (
+		(0 1px 3px 0, 10),
+		(0 1px 2px -1px, 10),
+	),
+	"md": (
+		(0 4px 6px -1px, 10),
+		(0 2px 4px -2px, 10),
+	),
+	"lg": (
+		(0 10px 15px -3px, 10),
+		(0 4px 6px -4px, 10),
+	),
+	"xl": (
+		(0 20px 25px -5px, 10),
+		(0 8px 10px -6px, 10),
+	),
+	"2xl": (
+		(0 25px 50px -12px, 25),
+	),
+);
+
+$inset-shadows: (
+	"2xs": (
+		inset 0 1px,
+		5,
+	),
+	"xs": (
+		inset 0 1px 1px,
+		5,
+	),
+	"sm": (
+		inset 0 2px 4px,
+		5,
+	),
+);
+
+// Slot 1 — inset drop shadow.
+@function inset-shadow($size, $color: null) {
+	$key: "#{$size}";
+
+	@if $key == "none" {
+		@return string.unquote("0 0 #0000");
+	}
+
+	@if not map.has-key($inset-shadows, $key) {
+		@error "Unknown inset shadow `#{$size}`";
+	}
+
+	$layer: map.get($inset-shadows, $key);
+	$geometry: list.nth($layer, 1);
+	$opacity: list.nth($layer, 2);
+
+	$layer-color: $color;
+	@if not $color {
+		$layer-color: color("black/#{$opacity}");
+	}
+
+	@return string.unquote("#{$geometry} #{$layer-color}");
+}
+
+// Slot 2 — inset ring. Always inset; independent of ring-offset.
+@function inset-ring($width: 1px, $color: currentColor) {
+	@return string.unquote("inset 0 0 0 #{$width} #{$color}");
+}
+
+// Slot 3 — ring offset. Defaults to the page background (white); pass the same
+// width to ring()'s $offset-width to reproduce Tailwind's gap.
+@function ring-offset($width, $color: color("white")) {
+	@return string.unquote("0 0 0 #{$width} #{$color}");
+}
+
+// Slot 4 — ring. Defaults to 1px currentColor. $inset draws it inside the edge.
+// When combined with ring-offset(), pass the offset width as $offset-width so the
+// ring's spread matches Tailwind's calc(width + offset).
+@function ring(
+	$width: 1px,
+	$color: currentColor,
+	$inset: false,
+	$offset-width: 0
+) {
+	$spread: "#{$width}";
+	@if $offset-width != 0 {
+		$spread: "calc(#{$width} + #{$offset-width})";
+	}
+
+	$prefix: "";
+	@if $inset {
+		$prefix: "inset ";
+	}
+
+	@return string.unquote("#{$prefix}0 0 0 #{$spread} #{$color}");
+}
+
+// Slot 5 — drop shadow. A non-null $color overrides every layer, matching
+// Tailwind's --tw-shadow-color (the baked per-layer opacity is dropped then).
+@function shadow($size, $color: null) {
+	$key: "#{$size}";
+
+	@if $key == "none" {
+		@return string.unquote("0 0 #0000");
+	}
+
+	@if not map.has-key($shadows, $key) {
+		@error "Unknown shadow `#{$size}`";
+	}
+
+	$result: "";
+
+	@each $layer in map.get($shadows, $key) {
+		$geometry: list.nth($layer, 1);
+		$opacity: list.nth($layer, 2);
+
+		$layer-color: $color;
+		@if not $color {
+			$layer-color: color("black/#{$opacity}");
+		}
+
+		$layer-str: "#{$geometry} #{$layer-color}";
+		@if $result == "" {
+			$result: $layer-str;
+		} @else {
+			$result: "#{$result}, #{$layer-str}";
+		}
+	}
+
+	@return string.unquote($result);
+}
+
+$blur: (
+	"xs": 4px,
+	"sm": 8px,
+	"md": 12px,
+	"lg": 16px,
+	"xl": 24px,
+	"2xl": 40px,
+	"3xl": 64px,
+);
+
+@function filter-blur($size) {
+	@if map.has-key($blur, $size) {
+		@return map.get($blur, $size);
+	}
+
+	@error "Unknown blur `#{$size}`";
+}
+
+$easings: (
+	"in": (
+		cubic-bezier(0.4, 0, 1, 1),
+	),
+	"out": (
+		cubic-bezier(0, 0, 0.2, 1),
+	),
+	"in-out": (
+		cubic-bezier(0.4, 0, 0.2, 1),
+	),
+	"linear": (
+		linear,
+	),
+);
+
+@function ease($type) {
+	@if map.has-key($easings, $type) {
+		@return map.get($easings, $type);
+	}
+
+	@error "Unknown easing `#{$type}`";
+}
+
+$animations: (
+	"spin": (
+		spin 1s linear infinite,
+	),
+	"ping": (
+		ping 1s cubic-bezier(0, 0, 0.2, 1) infinite,
+	),
+	"pulse": (
+		pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite,
+	),
+	"bounce": (
+		bounce 1s infinite,
+	),
+);
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes ping {
+	75%,
+	100% {
+		transform: scale(2);
+		opacity: 0;
+	}
+}
+
+@keyframes pulse {
+	50% {
+		opacity: 0.5;
+	}
+}
+
+@keyframes bounce {
+	0%,
+	100% {
+		transform: translateY(-25%);
+		animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+	}
+	50% {
+		transform: none;
+		animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+	}
+}
+
+@mixin animation($name) {
+	@if map.has-key($animations, $name) {
+		animation: map.get($animations, $name);
+	} @else {
+		@error "Unknown animation `#{$name}`";
+	}
+}
+
+$tracking: (
+	"tighter": -0.05em,
+	"tight": -0.025em,
+	"normal": 0em,
+	"wide": 0.025em,
+	"wider": 0.05em,
+	"widest": 0.1em,
+);
+
+@function tracking($size) {
+	@if map.has-key($tracking, $size) {
+		@return map.get($tracking, $size);
+	}
+
+	@error "Unknown tracking `#{$size}`";
+}

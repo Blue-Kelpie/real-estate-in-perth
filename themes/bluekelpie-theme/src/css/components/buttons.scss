@@ -1,0 +1,182 @@
+@use "../utils/index.scss" as *;
+@use "./typography.scss" as *;
+@use "sass:map";
+
+$button-variations: (
+	default: (
+		css: (
+			color: color("white"),
+			background: color(primary-600),
+			box-shadow: shadow(xs),
+		),
+		hover: (
+			overlay: color("white/20"),
+		),
+		focus: (
+			offset: 2px,
+		),
+	),
+	secondary: (
+		css: (
+			color: color(gray-900),
+			background: none,
+			box-shadow: (
+				inset-ring(1px, color(gray-300)),
+				shadow(xs),
+			),
+		),
+		hover: (
+			overlay: color("gray-900/5"),
+		),
+		focus: (
+			offset: -2px,
+		),
+	),
+	plain: (
+		css: (
+			color: color(gray-900),
+			background: none,
+		),
+		hover: (
+			overlay: color("gray-900/10"),
+		),
+		focus: (
+			offset: -2px,
+		),
+	),
+);
+
+@mixin button($variant, $expanded: true) {
+	$variant-map: map.get($button-variations, $variant);
+
+	@if $variant-map {
+		text-wrap: nowrap;
+
+		$css: map.get($variant-map, css);
+		@each $prop, $value in $css {
+			#{$prop}: $value;
+		}
+
+		$hover: map.get($variant-map, hover);
+		@if $hover {
+			@include hover-overlay(
+				var(--btn-border-radius),
+				map.get($hover, overlay),
+				$expanded: $expanded
+			);
+		}
+
+		$focus: map.get($variant-map, focus);
+		&:focus-visible {
+			@include focus-outline(
+				(
+					offset: map.get($focus, offset),
+				)
+			);
+		}
+	} @else {
+		@error "Invalid button variant: `#{$variant}`. ";
+	}
+}
+
+$button-sizes: (
+	sm: (
+		css: (
+			padding-block: spacing(2),
+			padding-inline: spacing(3),
+		),
+		custom: (
+			border-radius: rounded(md),
+			typography: action-sm,
+			icon-gap: spacing(1.5),
+			icon: spacing(4),
+			active-scale: 0.96,
+		),
+	),
+	md: (
+		css: (
+			padding-block: spacing(2.5),
+			padding-inline: spacing(4),
+		),
+		custom: (
+			border-radius: rounded(md),
+			typography: action-sm,
+			icon-gap: spacing(1.5),
+			icon: spacing(4),
+			active-scale: 0.97,
+		),
+	),
+	lg: (
+		css: (
+			padding-block: spacing(3),
+			padding-inline: spacing(5),
+		),
+		custom: (
+			border-radius: rounded(md),
+			typography: action-md,
+			icon-gap: spacing(1.5),
+			icon: spacing(5),
+			active-scale: 0.98,
+		),
+	),
+);
+
+@mixin button-size($size) {
+	$props: map.get($button-sizes, $size);
+	$custom-props: map.get($props, custom);
+	$border-radius: map.get($custom-props, border-radius);
+
+	&:where(a, button),
+	.wp-element-button {
+		--btn-border-radius: #{$border-radius};
+
+		justify-content: center;
+		border-radius: var(--btn-border-radius);
+
+		@each $prop, $value in map.get($props, css) {
+			#{$prop}: $value;
+		}
+
+		@include text(map.get($custom-props, typography));
+
+		gap: map.get($custom-props, icon-gap);
+
+		svg {
+			width: map.get($custom-props, icon);
+			height: map.get($custom-props, icon);
+		}
+	}
+}
+
+@mixin button-scale-active($percentage) {
+	transition-property: transform;
+	transition-duration: 150ms;
+	transition-timing-function: ease("in-out");
+
+	&:active,
+	&:has(:active) {
+		transform: scale($percentage);
+	}
+}
+
+@mixin button-size-scale-active($size) {
+	$props: map.get($button-sizes, $size);
+	$custom-props: map.get($props, custom);
+
+	@include button-scale-active(map.get($custom-props, active-scale));
+}
+
+@mixin focus-outline($options: ()) {
+	$color: color("primary-600");
+	@if map.has-key($options, color) {
+		$color: map.get($options, color);
+	}
+
+	$offset: 2px;
+	@if map.has-key($options, offset) {
+		$offset: map.get($options, offset);
+	}
+
+	outline: 2px solid $color;
+	outline-offset: $offset;
+}

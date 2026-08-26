@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ruleset name="BlueKelpie Scaffold">
+  <description>A custom set of rules based on Gutenberg's rules.</description>
+
+  <!-- What to scan -->
+  <file>themes/bluekelpie-theme</file>
+  <file>mu-plugins/bluekelpie-plugin</file>
+
+  <!-- What to ignore -->
+  <exclude-pattern>/build/</exclude-pattern>
+  <exclude-pattern>/node_modules/</exclude-pattern>
+  <exclude-pattern>/vendor/</exclude-pattern>
+  <exclude-pattern>/src/blocks-manifest.php</exclude-pattern>
+  <exclude-pattern>/build/*.asset.php</exclude-pattern>
+
+  <!-- How to scan -->
+  <arg value="sp"/>
+  <arg name="basepath" value="."/>
+  <arg name="colors"/>
+  <arg name="extensions" value="php"/>
+  <arg name="parallel" value="20"/>
+
+   <!-- Rules: PHPCompatabilityWP -->
+  <config name="testVersion" value="8.2-"/>
+  <rule ref="PHPCompatibilityWP"/>
+
+  <!-- Rules: WordPress Coding Standards -->
+  <config name="minimum_supported_wp_version" value="6.9"/>
+
+  <rule ref="WordPress">
+	<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+	<exclude name="Universal.Arrays.DisallowShortArraySyntax.Found"/>
+	<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+	<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+  </rule>
+
+  <rule ref="WordPress.Arrays.MultipleStatementAlignment">
+	<properties>
+		<property name="maxColumn" value="80"/>
+	</properties>
+  </rule>
+
+  <rule ref="Squiz.Commenting.FileComment.Missing">
+	<exclude-pattern>/mu-plugins/bluekelpie-plugin-loader.php</exclude-pattern>
+  </rule>
+
+  <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+	<properties>
+		<property name="prefixes" type="array">
+			<element value="bluekelpie"/>
+		</property>
+	</properties>
+	<exclude-pattern>/blocks/*/render.php</exclude-pattern>
+  </rule>
+</ruleset>

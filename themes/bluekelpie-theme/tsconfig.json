@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "es2020",
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"jsx": "react-jsx",
+		"strict": true,
+		"allowJs": true,
+		"checkJs": false,
+		"noEmit": true,
+		"skipLibCheck": true
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "build"]
+}

@@ -1,0 +1,52 @@
+// https://www.joshwcomeau.com/css/custom-css-reset/
+// https://github.com/10up/wp-scaffold/blob/trunk/themes/10up-block-theme/assets/css/base/reset.css
+
+// Ensure best type rendering
+:root {
+	font-feature-settings: "kern";
+	font-kerning: normal;
+	text-rendering: optimizelegibility;
+}
+
+// Improve text rendering
+body {
+	-webkit-font-smoothing: antialiased;
+}
+
+// Avoid text overflows
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+
+// Pretty is the nicer result but it isn't supported as well. So balance is here as a fallback
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
+	text-wrap: pretty;
+}
+
+p {
+	text-wrap: pretty;
+}
+
+// Create a root stacking context
+.wp-site-blocks {
+	isolation: isolate;
+}
+
+// Ensure the alt text is visible when an image is missing
+img {
+	font-size: 1rem;
+	font-style: italic;
+	line-height: 1.5;
+}

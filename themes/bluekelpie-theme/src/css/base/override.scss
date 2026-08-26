@@ -1,0 +1,58 @@
+@use "../components/index.scss" as *;
+@use "../utils/index.scss" as *;
+@use "sass:string";
+
+::selection {
+	background: color("primary-600");
+	color: color("white");
+}
+
+*:focus-visible {
+	@include focus-outline();
+}
+
+html.has-modal-open {
+	overflow: hidden;
+}
+
+body {
+	background-color: color("white");
+}
+
+.wp-site-blocks {
+	min-height: 100dvh;
+	display: flex;
+	flex-direction: column;
+	background-color: color("white");
+
+	main {
+		flex-grow: 1;
+	}
+}
+
+.site-x-padding {
+	padding-inline: var(--wp--custom--site-x-padding);
+}
+
+@media screen and (width >= 64rem) {
+	body {
+		--wp--custom--site-x-padding: var(--wp--preset--spacing--32);
+	}
+}
+
+.sr-only {
+	@include sr-only;
+}
+
+@each $size, $props in $typography-map {
+	$size-str: "#{$size}";
+	.has-#{$size-str}-font-size {
+		@include text($size);
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	@view-transition {
+		navigation: auto;
+	}
+}

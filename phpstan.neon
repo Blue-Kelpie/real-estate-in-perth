@@ -1,0 +1,30 @@
+includes:
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+	- vendor/phpstan/phpstan-deprecation-rules/rules.neon
+
+parameters:
+	paths:
+		- themes/bluekelpie-theme/includes/
+		- themes/bluekelpie-theme/src/blocks/
+		- themes/bluekelpie-theme/functions.php
+		- mu-plugins/bluekelpie-plugin-loader.php
+		- mu-plugins/bluekelpie-plugin/includes/
+		- mu-plugins/bluekelpie-plugin/bluekelpie-plugin.php
+	bootstrapFiles:
+		- phpstan/constants.php
+		- vendor/php-stubs/acf-pro-stubs/acf-pro-stubs.php
+	phpVersion: 80200
+	reportUnmatchedIgnoredErrors: false
+	level: 10
+	ignoreErrors:
+		# Uses func_get_args()
+		- '#^Function apply_filters invoked with [34567] parameters, 2 required\.$#'
+		- '#^Function remove_filter invoked with [34567] parameters, 2-3 required\.$#'
+		# Remove issues that come from using array as a type rather than string[] or array<string> etc.
+		- '#no value type specified in iterable type array#'
+		# These are annoying issues where PHPStan isn't picking up the type correctly. We can fix these once we get real PHP generics.
+		- '#^Parameter \#3 \$deps of function wp_enqueue_script expects array<string>, array<string>\|string given\.#'
+		- '#^Parameter \#3 \$deps of function wp_register_script expects array<string>, array<string>\|string given\.#'
+		- '#^Parameter \#3 \$deps of function wp_register_script_module expects array<int\|string, array{id: string, import\?: string}>, array<string>\|string given\.#'
+		- '#^Parameter \#3 \$deps of function wp_enqueue_script_module expects array<int\|string, array{id: string, import\?: string}>, array<string> given\.#'
+		- '#^Parameter \#3 \$deps of function wp_register_style expects array<string>, array<string>\|string given\.#'

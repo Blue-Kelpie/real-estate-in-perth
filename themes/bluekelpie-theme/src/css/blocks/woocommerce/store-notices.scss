@@ -1,0 +1,39 @@
+@use "../../components/index.scss" as *;
+@use "../../utils/index.scss" as *;
+
+div.wc-block-components-notice-banner {
+	&.is-error {
+		@include alert(
+			red,
+			(
+				heading: "div.wc-block-components-notice-banner__content",
+				button: "a.button.wc-forward.wp-element-button",
+				svg: "svg",
+			)
+		);
+	}
+
+	&.is-success {
+		@include alert(
+			green,
+			(
+				heading: "div.wc-block-components-notice-banner__content",
+				button: "a.button.wc-forward.wp-element-button",
+				svg: "svg",
+			)
+		);
+	}
+
+	svg {
+		@include size(6);
+	}
+
+	a.button.wc-forward.wp-element-button {
+		@include svg-pseudo(arrow-right);
+
+		padding: spacing(3) !important;
+		margin: spacing(-3) !important;
+		opacity: 1 !important;
+		text-decoration: unset;
+	}
+}

@@ -1,0 +1,10 @@
+@use "../../utils/index.scss" as *;
+@use "../../plugins/gravity-forms.scss" as *;
+
+div.gform_wrapper {
+	@include gravity-form;
+}
+
+div[data-slot="form"] {
+	@include gravity-form-confirmation;
+}

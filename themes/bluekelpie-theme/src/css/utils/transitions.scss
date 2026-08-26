@@ -1,0 +1,40 @@
+@use "./functions.scss" as *;
+@use "sass:map";
+@use "sass:string";
+@use "sass:math";
+@use "sass:meta";
+@use "sass:list";
+
+// Shared enter/leave motion durations (popovers, disclosures, accordion).
+// Convention: the element appears/expands on enter, collapses/disappears on leave.
+$duration-enter: 250ms;
+$duration-leave: 200ms;
+
+@mixin transition-properties() {
+	transition-property:
+		background-color,
+		border-color,
+		outline-color,
+		text-decoration-color,
+		fill,
+		stroke,
+		opacity,
+		box-shadow,
+		transform,
+		translate,
+		scale,
+		rotate,
+		filter,
+		-webkit-backdrop-filter,
+		backdrop-filter,
+		display,
+		content-visibility,
+		overlay,
+		pointer-events;
+}
+
+@mixin transition() {
+	@media (prefers-reduced-motion: no-preference) {
+		@content;
+	}
+}

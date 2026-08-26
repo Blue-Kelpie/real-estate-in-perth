@@ -1,0 +1,363 @@
+@use "../components/index.scss" as *;
+@use "../utils/index.scss" as *;
+
+@mixin gravity-form-error-styles {
+	div.gform_validation_errors {
+		background-color: color("red-600/5") !important;
+		border: unset !important;
+		padding: spacing(4) !important;
+		border-radius: rounded(md) !important;
+		box-shadow: unset !important;
+		margin-bottom: spacing(8) !important;
+
+		&:has(ol) {
+			padding-block: spacing(4) !important;
+		}
+
+		&:focus {
+			outline-color: transparent !important;
+		}
+
+		h2 {
+			align-items: center;
+			display: flex;
+			font-family: inherit;
+			gap: spacing(2);
+			color: color("red-700") !important;
+			@include input-font-size;
+
+			span.gform-icon {
+				font-size: spacing(6) !important;
+				position: unset !important;
+				color: color("red-500");
+			}
+		}
+	}
+
+	.gfield {
+		div.validation_message {
+			@include input-font-size;
+
+			border: unset;
+			background: unset !important;
+			color: color("red-600") !important;
+			padding: unset;
+			width: fit-content;
+			margin-top: spacing(1) !important;
+			margin-bottom: 0 !important;
+			text-wrap: nowrap;
+		}
+	}
+}
+
+@mixin gravity-form {
+	@include gravity-form-error-styles;
+
+	width: 100%;
+
+	@include breakpoint(max-sm) {
+		.gfield:not(.gfield--width-full) {
+			grid-column: 1 / -1 !important;
+		}
+	}
+
+	.gform_anchor {
+		&:focus-visible {
+			outline: none !important;
+		}
+	}
+
+	div.gform_heading {
+		display: none;
+	}
+
+	form {
+		div.gform-body {
+			div.gform_fields {
+				column-gap: spacing(4);
+				row-gap: spacing(4);
+
+				.gfield {
+					@include input-overlay-label();
+
+					div.ginput_container {
+						textarea {
+							resize: none;
+						}
+					}
+
+					&.gfield--type-text {
+						input {
+							@include input;
+						}
+					}
+
+					&.gfield--type-email {
+						input {
+							@include input;
+							width: 100%;
+						}
+					}
+
+					&.gfield--type-phone {
+						input {
+							@include input;
+							width: 100%;
+						}
+					}
+
+					// Suburb
+					/* stylelint-disable-next-line selector-id-pattern */
+					&#field_1_13 {
+						grid-column: span 3;
+					}
+
+					// State/Territory select
+					/* stylelint-disable-next-line selector-id-pattern */
+					&#field_1_14 {
+						grid-column: span 6;
+					}
+
+					// Postcode input
+					/* stylelint-disable-next-line selector-id-pattern */
+					&#field_1_12 {
+						grid-column: span 3;
+					}
+
+					&.gfield--type-select {
+						div.ginput_container_select {
+							position: relative;
+
+							@include svg-pseudo(
+								chevron-down,
+								(
+									size: spacing(5),
+								)
+							);
+
+							&::after {
+								position: absolute;
+								right: spacing(2);
+								top: spacing(3);
+								opacity: 0.5;
+							}
+						}
+
+						select {
+							@include input;
+							@include input-padding-placeholder-hidden;
+
+							appearance: none;
+						}
+					}
+
+					&.gfield--type-radio,
+					&.gfield--type-checkbox {
+						legend {
+							@include sr-only;
+						}
+						// When field required message is visible
+						&:has(> div.gfield_validation_message) {
+							input[type="radio"],
+							input[type="checkbox"] {
+								outline-color: color("red-600") !important;
+							}
+						}
+
+						div.ginput_container {
+							div.gfield_checkbox,
+							div.gfield_radio {
+								display: flex;
+								flex-direction: column;
+								gap: spacing(3);
+							}
+
+							div.gchoice {
+								display: grid;
+								grid-template-columns: spacing(5) auto;
+								gap: spacing(2.5);
+								align-items: center;
+
+								label {
+									@include input-font-size;
+									color: color("gray-600");
+									transform: unset !important;
+								}
+							}
+						}
+					}
+
+					&.gfield_visibility_hidden {
+						display: none !important;
+					}
+				}
+
+				input[type="radio"] {
+					@include radio;
+				}
+
+				input[type="checkbox"] {
+					@include checkbox;
+				}
+
+				// Wrap city/state/zip in a single row
+				fieldset {
+					div.ginput_container_address {
+						span {
+							&:not(.ginput_full) {
+								flex: 0 0 33% !important;
+							}
+
+							&.ginput_full {
+								&:not(:last-of-type) {
+									margin-bottom: spacing(6);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		div.gform-footer {
+			margin: 0 !important;
+			padding-bottom: 0 !important;
+			padding-top: spacing(8) !important;
+
+			input {
+				margin: 0 !important;
+			}
+
+			button[type="submit"] {
+				margin-bottom: 0 !important;
+
+				@include button-scale-active(0.99);
+				@include button("default");
+
+				@include breakpoint(max-md) {
+					@include button-size("lg");
+				}
+
+				@include breakpoint(md) {
+					@include button-size("md");
+				}
+			}
+		}
+	}
+}
+
+@mixin gravity-form-confirmation() {
+	position: relative;
+	width: 100%;
+
+	&:has(.bk-gform-state-container) {
+		height: var(--form-height);
+
+		.gform_confirmation_message {
+			display: none;
+		}
+
+		.gform_wrapper {
+			opacity: 0.5;
+
+			@include transition() {
+				transition: opacity 400ms ease("out");
+			}
+		}
+	}
+
+	.bk-gform-state-container {
+		margin-top: 0;
+		display: flex;
+		position: absolute;
+		inset: 0;
+
+		.container {
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: spacing(3);
+
+			@keyframes scale-up {
+				0% {
+					transform: scale(0);
+				}
+				100% {
+					transform: scale(1);
+				}
+			}
+
+			@keyframes spinner-enter {
+				0% {
+					transform: scale(0);
+					opacity: 0;
+				}
+				100% {
+					transform: scale(1);
+					opacity: 1;
+				}
+			}
+
+			.loading-spinner-wrapper {
+				display: inline-flex;
+				color: color("primary-600");
+
+				@include transition() {
+					transform: scale(0);
+					opacity: 0;
+					animation: spinner-enter 400ms ease("out") forwards;
+				}
+
+				svg.loading-spinner {
+					@include animation("spin");
+				}
+			}
+
+			span.check {
+				background-color: color("primary-600");
+				padding: spacing(2);
+				border-radius: rounded("full");
+				color: color("white");
+
+				svg {
+					@include transition() {
+						transform: scale(0);
+						animation: scale-up 400ms ease("out") 200ms forwards;
+					}
+				}
+			}
+
+			p {
+				@include text("body-md");
+				line-height: spacing(
+					6
+				) !important; // consistent line-height to simplify the loading spinner and confirmation checkmark alignment.
+				color: color("gray-900");
+
+				&.loading {
+					opacity: 0; // Hide from users but hold space in the DOM.
+				}
+			}
+
+			button {
+				position: absolute !important;
+				bottom: var(--padding-bottom);
+				right: var(--padding);
+				left: var(--padding);
+
+				@include button-scale-active(0.99);
+				@include button("default");
+
+				@include breakpoint(max-md) {
+					@include button-size("lg");
+				}
+
+				@include breakpoint(md) {
+					@include button-size("md");
+				}
+			}
+		}
+	}
+}

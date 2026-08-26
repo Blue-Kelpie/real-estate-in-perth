@@ -1,0 +1,21 @@
+{
+	"name": "bluekelpie/bluekelpie-theme",
+	"type": "wordpress-theme",
+	"authors": [
+		{
+			"name": "Blue Kelpie",
+			"email": "enquiries@bluekelpie.com.au"
+		}
+	],
+	"require": {
+		"php": ">=8.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"BlueKelpieTheme\\": "includes/"
+		},
+		"files": [
+			"includes/Helpers.php"
+		]
+	}
+}

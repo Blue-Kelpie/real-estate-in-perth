@@ -1,0 +1,45 @@
+@use "../../components/buttons.scss" as *;
+@use "../../components/typography.scss" as *;
+@use "../../utils/index.scss" as *;
+@use "sass:map";
+
+.wp-block-button {
+	&.has-icon {
+		&.icon-before {
+			svg {
+				order: -1;
+			}
+		}
+
+		> * {
+			display: flex;
+			align-items: center;
+
+			svg {
+				@include size(5);
+				flex-shrink: 0;
+			}
+		}
+	}
+
+	&:not([class*="is-style-"]) {
+		.wp-element-button {
+			@include button(default);
+		}
+	}
+
+	@each $variant, $props in $button-variations {
+		&.is-style-#{$variant} {
+			.wp-element-button {
+				@include button($variant);
+			}
+		}
+	}
+
+	@each $size, $props in $button-sizes {
+		&.size-#{$size} {
+			@include button-size($size);
+			@include button-size-scale-active($size);
+		}
+	}
+}

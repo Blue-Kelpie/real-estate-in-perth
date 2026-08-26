@@ -1,0 +1,66 @@
+@use "../utils/index.scss" as *;
+@use "sass:map";
+
+$typography-map: (
+	action-sm: (
+		font-weight: 500,
+		line-height: 1.25rem,
+	),
+	action-md: (
+		font-weight: 500,
+		line-height: 1.25rem,
+	),
+	body-sm: (
+		line-height: 1.4,
+	),
+	body-md: (),
+	body-lg: (
+		line-height: 1.4,
+	),
+	subheading-md: (
+		font-weight: 500,
+	),
+	subheading-lg: (
+		font-weight: 500,
+	),
+	heading-3-xl: (
+		font-weight: 600,
+		line-height: 1.2,
+		letter-spacing: -2%,
+	),
+	heading-4-xl: (
+		font-weight: 600,
+		line-height: 1.15,
+		letter-spacing: -2%,
+	),
+	heading-5-xl: (
+		font-weight: 600,
+		line-height: 1,
+		letter-spacing: -2%,
+	),
+);
+
+@mixin text($size, $important: false) {
+	$size-map: map.get($typography-map, $size);
+
+	@if $size-map {
+		font-size: var(--wp--preset--font-size--#{$size});
+
+		@each $prop, $value in $size-map {
+			$important-str: "";
+
+			@if $important {
+				$important-str: "!important";
+			}
+
+			#{$prop}: #{$value} #{$important-str};
+		}
+	} @else {
+		@error "Invalid text size: `#{$size}`. ";
+	}
+}
+
+@mixin text-xs() {
+	font-size: spacing(3);
+	line-height: spacing(3);
+}

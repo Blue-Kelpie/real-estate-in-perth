@@ -1,0 +1,40 @@
+{
+	"workbench.colorCustomizations": {
+		"titleBar.activeBackground": "#082f49",
+		"titleBar.activeForeground": "#7fb2c9",
+		"titleBar.inactiveBackground": "#173142",
+		"titleBar.inactiveForeground": "#7b97a4"
+	},
+
+	"prettier.enable": true,
+	"eslint.enable": true,
+	"stylelint.enable": true,
+	"editor.formatOnSave": true,
+	"intelephense.format.enable": false,
+
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit",
+		"source.fixAll.stylelint": "explicit"
+	},
+	"eslint.workingDirectories": [
+		{ "directory": ".", "changeProcessCWD": true }
+	],
+	"stylelint.validate": ["css", "postcss", "scss"],
+
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[php]": {
+		"editor.defaultFormatter": "valeryanm.vscode-phpsab"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	}
+}

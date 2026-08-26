@@ -1,0 +1,56 @@
+// https://tailwindcss.com/plus/ui-blocks/application-ui/feedback/alerts
+@use "../utils/index.scss" as *;
+@use "./typography.scss" as *;
+@use "sass:list";
+@use "sass:map";
+
+$colours: green, yellow, red, blue; /* stylelint-disable-line */
+
+@mixin alert($colour, $options: ()) {
+	@if not list.index($colours, $colour) {
+		@error "Invalid alert colour: #{$colour}. Colour must be one of: #{$colours}.";
+	}
+
+	@include text(body-sm);
+
+	padding: spacing(4) !important;
+	background-color: color(#{$colour}-50) !important;
+	border-color: transparent;
+
+	$heading: map.get($options, "heading");
+
+	@if $heading {
+		#{$heading} {
+			color: color(#{$colour}-800) !important;
+		}
+	}
+
+	$body: map.get($options, "body");
+
+	@if $body {
+		#{$body} {
+			color: color(#{$colour}-700) !important;
+		}
+	}
+
+	$button: map.get($options, "button");
+
+	@if $button {
+		#{$button} {
+			color: color(#{$colour}-800) !important;
+			font-weight: 500 !important;
+
+			@include on-event {
+				color: color(#{$colour}-700) !important;
+			}
+		}
+	}
+
+	$svg: map.get($options, "svg");
+
+	@if $svg {
+		#{$svg} {
+			background-color: color(#{$colour}-400) !important;
+		}
+	}
+}
