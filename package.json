@@ -27,14 +27,14 @@
 	},
 	"devDependencies": {
 		"eslint": "^10",
-		"@wordpress/eslint-plugin": "^25",
-		"@wordpress/prettier-config": "^4",
-		"@wordpress/scripts": "^32.6.0",
-		"@wordpress/stylelint-config": "^23",
+		"@wordpress/eslint-plugin": "^28",
+		"@wordpress/prettier-config": "^5",
+		"@wordpress/scripts": "^37.0.0",
+		"@wordpress/stylelint-config": "^27",
 		"eslint-config-prettier": "^10",
 		"stylelint": "^17",
 		"husky": "^9",
 		"lint-staged": "^17",
-		"typescript": "^6"
+		"typescript": "^7"
 	}
 }
