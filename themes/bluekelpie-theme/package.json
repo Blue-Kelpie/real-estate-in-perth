@@ -10,17 +10,17 @@
 		"env:dev": "composer i && pnpm i && pnpm build"
 	},
 	"devDependencies": {
-		"@10up/block-components": "^1.22.1",
+		"@10up/block-components": "^1.23.0",
 		"@tailwindplus/elements": "^1.0.22",
-		"@wordpress/element": "^8.2.0",
-		"@wordpress/hooks": "^4.50.0",
-		"@wordpress/i18n": "^6.23.0",
-		"@wordpress/icons": "^15.1.0",
-		"@wordpress/interactivity": "^6.50.0",
-		"@wordpress/scripts": "^32.6.0",
-		"glob": "^13.0.6"
+		"@wordpress/element": "^10.0.0",
+		"@wordpress/hooks": "^5.0.0",
+		"@wordpress/i18n": "^7.0.0",
+		"@wordpress/icons": "^19.0.0",
+		"@wordpress/interactivity": "^8.0.0",
+		"@wordpress/scripts": "^37.0.0",
+		"glob": "^14.0.3"
 	},
 	"dependencies": {
-		"motion": "^12.43.0"
+		"motion": "^14.9.0"
 	}
 }
